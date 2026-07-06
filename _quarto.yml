@@ -35,8 +35,7 @@ format:
     papersize: letter
     toc: true
     number-sections: true
-    code-block-bg: "#f5f5f5"
-    code-block-border-left: "#cccccc"
+    echo: false
     include-in-header:
       text: |
         \usepackage{amsmath,amssymb}

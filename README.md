@@ -49,6 +49,8 @@ open _book/Generative-Modeling-from-First-Principles.pdf
 
 The GitHub Actions workflow installs TinyTeX automatically; the PDF is published alongside the HTML book.
 
+PDF hides source code (`echo: false`); the HTML site keeps foldable code blocks. To show specific cells in the PDF, add `#| echo: true` to those notebook cells and set `echo: fenced` under `format.pdf` in `_quarto.yml`.
+
 Set `QUICK = False` in `build_notebook.py` (or in the notebook) for higher-fidelity training runs.
 
 ## GitHub Pages
