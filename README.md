@@ -1,78 +1,43 @@
 # Generative Modeling from First Principles
 
-Interactive course materials on VAEs, GANs, and diffusion — math derived, then verified in code.
+Interactive notebook on VAEs, GANs, and diffusion — math derived, then verified in code.
 
-## Quick start (students)
+## Students: run in Google Colab
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+1. Clone or download `generative_first_principles.ipynb` from this repository.
+2. Open [Google Colab](https://colab.research.google.com/) → **File → Upload notebook**.
+3. **Runtime → Change runtime type → GPU** (recommended; CPU works with `QUICK=True`).
+4. **Runtime → Run all**.
 
-# Install Quarto: https://quarto.org/docs/download/
-quarto render
-open _book/index.html
+On a fresh Colab runtime, if imports fail, run once:
+
+```python
+!pip install -q scikit-learn scipy
 ```
 
-To run the notebook live in Jupyter:
+### Settings in the notebook
+
+| Variable | Default | Effect |
+|----------|---------|--------|
+| `QUICK` | `False` | `True` → 8×8 + fast training; `False` → 32×32 (readable digits) |
+| `IMG` | from `QUICK` | `8` if `QUICK` else `32` |
+| `SEED` | `0` | Reproducible runs |
+
+Use `QUICK=True` for a quick smoke test; `QUICK=False` for assignment-quality figures.
+
+## Local setup (optional)
 
 ```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
 jupyter lab generative_first_principles.ipynb
 ```
 
-## Project layout
+## Files
 
 | File | Purpose |
 |------|---------|
-| `index.qmd` | Landing page (setup, structure, tips) |
-| `generative_first_principles.ipynb` | Main notebook |
-| `build_notebook.py` | Regenerates the notebook from source |
-| `_quarto.yml` | Book configuration |
-
-## Rebuilding
-
-```bash
-python build_notebook.py   # optional: edit notebook source
-quarto render              # HTML + PDF to _book/
-quarto preview             # live preview with hot reload
-```
-
-### PDF
-
-PDF needs a LaTeX engine. **TinyTeX is enough** — you do not need the full MacTeX install (~4 GB):
-
-```bash
-quarto install tinytex      # one-time, ~100 MB
-quarto render --to pdf      # or: quarto render (builds HTML + PDF)
-open _book/Generative-Modeling-from-First-Principles.pdf
-```
-
-The GitHub Actions workflow installs TinyTeX automatically; the PDF is published alongside the HTML book.
-
-PDF hides source code (`echo: false`); the HTML site keeps foldable code blocks. To show specific cells in the PDF, add `#| echo: true` to those notebook cells and set `echo: fenced` under `format.pdf` in `_quarto.yml`.
-
-Set `QUICK = False` in `build_notebook.py` (or in the notebook) for higher-fidelity training runs.
-
-## GitHub Pages
-
-The site publishes automatically on every push to `main` via [`.github/workflows/publish.yml`](.github/workflows/publish.yml).
-
-**Live site:** https://neonetter.github.io/generative-first-principles/
-
-**PDF:** https://neonetter.github.io/generative-first-principles/Generative-Modeling-from-First-Principles.pdf
-
-**One-time setup (already done for this repo):**
-
-1. Push to `main` on `git@github.com:neonetter/generative-first-principles.git`
-2. In the repo **Settings → Actions → General**, set **Workflow permissions** to **Read and write**
-3. After the first workflow run, open **Settings → Pages** and confirm the source is the `gh-pages` branch
-
-**Manual publish** (optional, from your machine):
-
-```bash
-quarto publish gh-pages
-```
-
-The workflow uses `freeze: auto` and the notebook's cached outputs, so CI does not need PyTorch — renders stay fast.
-
-**Georgia Tech mirror:** `git@github.gatech.edu:asoobrian3/generative-first-principles.git` (optional second remote: `gatech`)
+| `generative_first_principles.ipynb` | Main notebook (distribute this) |
+| `vae.ipynb` | VAE-focused extract (work in progress) |
+| `build_notebook.py` | Regenerates the notebook from source (instructors) |
+| `requirements.txt` | Python dependencies |

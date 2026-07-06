@@ -31,7 +31,9 @@ This notebook is a rewrite of the usual "VAE, GAN, and Diffusion from scratch" t
 2. **Derive the math, then implement it.** The ELBO, the optimal GAN discriminator, the score/noise equivalence, and the DDPM forward/reverse equations are derived, not asserted.
 3. **Stay beginner-accessible.** Intuition is kept, but it is always cashed out into an equation or an experiment.
 
-**Runtime.** Everything runs on CPU in a few minutes. To keep it fast and dependency-light, all *image* models are small MLPs operating on 8×8 digits (from `torchvision` MNIST if available, otherwise `sklearn`'s `load_digits`, which requires no download). Swapping in full MNIST + conv nets is a localized change (`IMG` and the model classes).
+**Runtime.** All *image* models are small MLPs on MNIST resized to **8×8** (`QUICK=True`, laptop CPU smoke test) or **32×32** (`QUICK=False`, readable digits). Data comes from `torchvision` MNIST when available, else `sklearn`'s `load_digits` (offline, native 8×8).
+
+**Google Colab.** Open this notebook from GitHub (see repo README), choose **Runtime → Change runtime type → GPU**, then **Run all**. On a fresh runtime you may need `!pip install -q scikit-learn scipy` once.
 
 ***
 ### Structure
@@ -56,12 +58,13 @@ SEED = 0
 torch.manual_seed(SEED); np.random.seed(SEED)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# QUICK=True -> fast defaults for a laptop CPU. Set False for nicer results.
+# QUICK=True  -> 8x8 digits + fewer steps (CPU smoke test, ~minutes)
+# QUICK=False -> 32x32 digits (readable; fine on Colab GPU or patient CPU)
 QUICK = True
-print("device:", device, "| QUICK:", QUICK, "| torch:", torch.__version__)""")
+IMG = 8 if QUICK else 32
+print("device:", device, "| QUICK:", QUICK, "| IMG:", IMG, "| torch:", torch.__version__)""")
 
-code(r'''IMG = 8            # image side length; all image models are MLPs on IMG*IMG dims
-DIM = IMG * IMG
+code(r'''DIM = IMG * IMG  # IMG set in previous cell (8 if QUICK else 32)
 
 def load_digit_images(img=IMG):
     """Return X in [0,1] shape (N,1,img,img), labels y, and a source string.
@@ -969,16 +972,12 @@ md(r"""## Appendix — Common misconceptions (each debunked by a cell above)
 11. **"Just look at the samples."** Since a GAN has no likelihood, compare families with sample-based metrics (class entropy, Fréchet feature distance). — *Part 5.*
 
 ***
-*Rerun with `QUICK=False` for higher-fidelity training. Swap `IMG` and the model classes to move from 8×8 MLPs to full MNIST + conv nets.*""")
+*Rerun with `QUICK=False` for higher-fidelity training. `QUICK=False` uses 32×32 digits; `QUICK=True` uses 8×8 for a fast CPU run.*""")
 
 nb["cells"] = cells
 nb["metadata"] = {
     "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
     "language_info": {"name": "python"},
-    "quarto": {
-        "title": "Generative Modeling from First Principles",
-        "jupyter": "python3",
-    },
 }
 with open("generative_first_principles.ipynb", "w") as f:
     nbf.write(nb, f)
