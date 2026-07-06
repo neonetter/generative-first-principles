@@ -3,6 +3,7 @@ project:
   output-dir: _book
 
 website:
+  site-url: https://neonetter.github.io/generative-first-principles/
   site-path: /generative-first-principles/
 
 book:

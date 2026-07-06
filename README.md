@@ -43,18 +43,13 @@ Set `QUICK = False` in `build_notebook.py` (or in the notebook) for higher-fidel
 
 The site publishes automatically on every push to `main` via [`.github/workflows/publish.yml`](.github/workflows/publish.yml).
 
-**One-time setup:**
+**Live site:** https://neonetter.github.io/generative-first-principles/
 
-1. Create a GitHub repo named `generative-first-principles` (or update `site-path` in `_quarto.yml` if you use a different name).
-2. Push this project to `main`:
-   ```bash
-   git remote add origin git@github.com:YOUR_USER/generative-first-principles.git
-   git push -u origin main
-   ```
-3. In the repo **Settings → Actions → General**, set **Workflow permissions** to **Read and write**.
-4. After the first workflow run, open **Settings → Pages** and confirm the source is the `gh-pages` branch (Quarto creates this automatically).
+**One-time setup (already done for this repo):**
 
-**Live site:** `https://YOUR_USER.github.io/generative-first-principles/`
+1. Push to `main` on `git@github.com:neonetter/generative-first-principles.git`
+2. In the repo **Settings → Actions → General**, set **Workflow permissions** to **Read and write**
+3. After the first workflow run, open **Settings → Pages** and confirm the source is the `gh-pages` branch
 
 **Manual publish** (optional, from your machine):
 
@@ -63,3 +58,5 @@ quarto publish gh-pages
 ```
 
 The workflow uses `freeze: auto` and the notebook's cached outputs, so CI does not need PyTorch — renders stay fast.
+
+**Georgia Tech mirror:** `git@github.gatech.edu:asoobrian3/generative-first-principles.git` (optional second remote: `gatech`)
