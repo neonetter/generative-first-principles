@@ -39,7 +39,15 @@ brew install --cask quarto
 
 ## How to use these materials
 
-**Read the rendered book** (uses cached notebook outputs — fast):
+**Read online** (HTML book with folded code and figures):
+
+[Open the notebook chapter](generative_first_principles.html)
+
+**Download as PDF** (~1.2 MB, all math and figures):
+
+[Generative-Modeling-from-First-Principles.pdf](Generative-Modeling-from-First-Principles.pdf)
+
+**Build locally:**
 
 ```bash
 quarto render

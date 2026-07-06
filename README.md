@@ -33,9 +33,21 @@ jupyter lab generative_first_principles.ipynb
 
 ```bash
 python build_notebook.py   # optional: edit notebook source
-quarto render              # build HTML book to _book/
+quarto render              # HTML + PDF to _book/
 quarto preview             # live preview with hot reload
 ```
+
+### PDF
+
+PDF needs a LaTeX engine. **TinyTeX is enough** — you do not need the full MacTeX install (~4 GB):
+
+```bash
+quarto install tinytex      # one-time, ~100 MB
+quarto render --to pdf      # or: quarto render (builds HTML + PDF)
+open _book/Generative-Modeling-from-First-Principles.pdf
+```
+
+The GitHub Actions workflow installs TinyTeX automatically; the PDF is published alongside the HTML book.
 
 Set `QUICK = False` in `build_notebook.py` (or in the notebook) for higher-fidelity training runs.
 
@@ -44,6 +56,8 @@ Set `QUICK = False` in `build_notebook.py` (or in the notebook) for higher-fidel
 The site publishes automatically on every push to `main` via [`.github/workflows/publish.yml`](.github/workflows/publish.yml).
 
 **Live site:** https://neonetter.github.io/generative-first-principles/
+
+**PDF:** https://neonetter.github.io/generative-first-principles/Generative-Modeling-from-First-Principles.pdf
 
 **One-time setup (already done for this repo):**
 

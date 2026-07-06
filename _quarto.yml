@@ -30,6 +30,17 @@ format:
     code-tools: true
     fig-dpi: 120
     smooth-scroll: true
+  pdf:
+    documentclass: scrreprt
+    papersize: letter
+    toc: true
+    number-sections: true
+    code-block-bg: "#f5f5f5"
+    code-block-border-left: "#cccccc"
+    include-in-header:
+      text: |
+        \usepackage{amsmath,amssymb}
+        \usepackage{graphicx}
 
 execute:
   freeze: auto
